@@ -119,7 +119,7 @@ const cardNumberMasked = IMask(cardNumber, cardNumberPattern);
 const addButton = document.querySelector("#add-card");
 addButton.addEventListener("click", (e) => {
   //e.preventDefault();
-  console.log("clicou");
+  console.log("Cartão adicionado com sucesso!");
 });
 
 document.querySelector("form").addEventListener("submit", (e) => {
@@ -146,7 +146,6 @@ function updateSecurityCode(code) {
 //   const ccSecurity = document.querySelector(".cc-security .value");
 //   ccSecurity.innerText = code.length === 0 ? "123" : code;
 // });
-
 
 cardNumberMasked.on("accept", () => {
   const cardType = cardNumberMasked.masked.currentMask.cardType;
