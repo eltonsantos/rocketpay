@@ -11,7 +11,7 @@ function setCardType(type) {
     visa: ["#436D99", "#2D57F2"],
     discover: ["black", "gray"],
     diners: ["black", "gray"],
-    jcb15: ["black", "gray"],
+    hypercard: ["black", "gray"],
     jcb: ["black", "gray"],
     maestro: ["black", "gray"],
     unionpay: ["black", "gray"],
@@ -78,7 +78,7 @@ const cardNumberPattern = {
     {
       mask: "0000 0000 0000 0000",
       regex: /^(?:2131|1800)\d{0,11}/,
-      cardType: "jcb15"
+      cardType: "hypercard"
     },
     {
       mask: "0000 0000 0000 0000",
@@ -115,16 +115,6 @@ const cardNumberPattern = {
   }
 }
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern);
-
-const addButton = document.querySelector("#add-card");
-addButton.addEventListener("click", (e) => {
-  //e.preventDefault();
-  console.log("Cartão adicionado com sucesso!");
-});
-
-document.querySelector("form").addEventListener("submit", (e) => {
-  e.preventDefault();
-})
 
 const cardHolder = document.querySelector("#card-holder");
 cardHolder.addEventListener("input", () => {
@@ -165,4 +155,34 @@ expirationDateMasked.on("accept", () => {
 function updateExpirationDate(date) {
   const ccExpiration = document.querySelector(".cc-extra .value");
   ccExpiration.innerText = date.length === 0 ? "02/32" : date;
+}
+
+const addButton = document.querySelector("#add-card");
+addButton.addEventListener("click", (e) => {
+  //e.preventDefault();
+  alert("Cartão adicionado com sucesso!");
+});
+
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  form.reset();
+  defaultInputs();
+});
+
+function defaultInputs() {
+  const cardType = document.querySelector(".cc-logo .cc-logo-default");
+  cardType.src = '/cc-default.svg';
+
+  const ccNumber = document.querySelector(".cc-number");
+  ccNumber.innerText = cardNumber.value.length === 0 ? "1234 5678 9012 3456" : cardNumber.value;
+
+  const ccHolder = document.querySelector(".cc-holder .value");
+  ccHolder.innerText = cardHolder.value.length === 0 ? "FULANO DA SILVA" : cardHolder.value;
+
+  const ccExpiration = document.querySelector(".cc-extra .value");
+  ccExpiration.innerText = expirationDate.value.length === 0 ? "02/32" : expirationDate.value;
+
+  const ccSecurity = document.querySelector(".cc-security .value");
+  ccSecurity.innerText = securityCode.value.length === 0 ? "123" : securityCode.value;
 }
